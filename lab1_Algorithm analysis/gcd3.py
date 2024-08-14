@@ -3,6 +3,7 @@ import numpy as np
 import math
 
 testcase_file = "lab1_Algorithm analysis/testcase/Regular_Case1.txt"
+data_record = {}
 digit_record = []
 count_record = []
 count = 0
@@ -60,6 +61,7 @@ with open(testcase_file, "r") as f:
         print(f"count = {count}\n")
         count_record.append(count)
 
+        data_record[int(sum(digit_num) / len(digit_num))] = count
 
 print(digit_record)
 print(count_record)
@@ -68,7 +70,7 @@ print(count_record)
 x = np.array(digit_record)
 y = np.array(count_record)
 
-plt.plot(x,y)
+plt.plot(x,y,"-ro",)
 plt.xlabel("avg digit")
 plt.ylabel("count")
 plt.savefig("gcd3.png")
