@@ -1,10 +1,10 @@
 # importing the required module
-import numpy as np
+import matplotlib.pyplot as plt
 import math
 count =0
 digit_record= []
 count_record= []
-testcase_file = "Regular_Case1.txt"
+testcase_file = "Extra Case2 plot.txt"
 def prime_factors(n):
     global count
     lst = []
@@ -55,11 +55,16 @@ with open(testcase_file, "r") as f:
         digit_num = []
         count= 0
         str_arr =i.strip().split(",")
-        #print(str_arr)
         for i in str_arr:
             num.append(int(i))
             digit_num.append(len(str(i)))
-        print(num)
+        #check group of number in line
+        # print(num)
         digit_record.append(sum(digit_num)- len(digit_num))
         FindGCD1(*num[:len(num)+1])
-
+        count_record.append(count)
+plt.plot(digit_record,count_record)
+plt.xlabel('Digits')
+plt.ylabel('Count')
+plt.grid(True)
+plt.show()
