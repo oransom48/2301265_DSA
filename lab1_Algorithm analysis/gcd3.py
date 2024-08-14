@@ -3,7 +3,6 @@ import numpy as np
 import math
 
 testcase_file = "lab1_Algorithm analysis/testcase/Regular_Case1.txt"
-data_record = {}
 digit_record = []
 count_record = []
 count = 0
@@ -61,8 +60,7 @@ with open(testcase_file, "r") as f:
         print(f"count = {count}\n")
         count_record.append(count)
 
-        data_record[int(sum(digit_num) / len(digit_num))] = count
-
+# for debugging
 print(digit_record)
 print(count_record)
 
