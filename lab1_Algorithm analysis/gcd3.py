@@ -60,7 +60,7 @@ with open(testcase_file, "r") as f:
         print(f"count = {count}\n")
         count_record.append(count)
 
-
+# for debugging
 print(digit_record)
 print(count_record)
 
@@ -68,9 +68,9 @@ print(count_record)
 x = np.array(digit_record)
 y = np.array(count_record)
 
-plt.plot(x,y)
+plt.plot(x,y,"-ro",)
 plt.xlabel("avg digit")
 plt.ylabel("count")
-plt.savefig("gcd3.png")
+plt.savefig("gcd3_RegularCase.png")
 
 print("finish plotting graph")
