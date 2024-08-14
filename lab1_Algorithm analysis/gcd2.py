@@ -1,57 +1,55 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import math
+
 count = 0
 
-def primeFactors(n):
+def SieveOfEratosthenes(n):
     global count
-
+    primeFac = []
     spf = [0 for i in range(n+1)]
     spf[1] = 1
-
     for i in range(2, n+1):
         spf[i] = i
+
     for i in range(4, n+1, 2):
         spf[i] = 2
 
-    for i in range(3, int(n*0.5)+1):
+    for i in range(3, int(math.sqrt(n))+1):
         if spf[i] == i:
             for j in range(ii, n+1, i):
-                count += 1
                 if spf[j] == j:
                     spf[j] = i
+                    count+=1
 
-    primeFac = []
     while n != 1:
         primeFac.append(spf[n])
         n = n // spf[n]
     return primeFac
 
-def commonPrimeFac(a1, a2):
-    global count
+def FindGCD2(m,n):
+  global count
+  print(" prime factors of m by sieveof eratosthenes are")
+  mPrimeFac = SieveOfEratosthenes(int(m))
+  print(mPrimeFac)
+  print(" prime factors of n by sieveof eratosthenes are")
+  nPrimeFac = SieveOfEratosthenes(int(n))
+  print(nPrimeFac)
 
-    cpf = []
-    for i in range(len(a1)):
-        for j in range(len(a2)):
-            count += 1
-            if a1[i] == a2[j]:
-                count += 1
-                cpf.append(a1[i])
-                break
-    return cpf
+  commonFac = []
+  for i in mPrimeFac:
+    for j in nPrimeFac:
+      count += 1
+      if i == j :
+        commonFac.append(i)
+        break
+      if j > i: break
+  print(f"common fac are ",commonFac)
 
-def findGCD2(m, n):
-    global count
-
-    cpf = commonPrimeFac(primeFactors(m), primeFactors(n))
-    gcd = 1
-    for i in cpf:
-        count += 1
-        gcd *= i
-    return gcd
-
-with open(testCaseFile, "r") as f:
-    for i in f:
-        m, n = i.strip().split(',')
-        m = int(m)
-        n = int(n)
-        count = 0
-        print(f"GCD of {m} and {n} is {findGCD2(m,n)}: ")
-        print(f"count = {count}\n")
+  sum = 1
+  for i in commonFac:
+    sum= i
+  print(f"GCD is ",sum)
+  
+FindGCD2(20,40)
+print(f"count = ",count)
