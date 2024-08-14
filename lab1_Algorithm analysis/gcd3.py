@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 
-testcase_file = "lab1_Algorithm analysis/testcase/Regular_Case1.txt"
+testcase_file = "lab1_Algorithm analysis/testcase/Extra Case2 plot.txt"
 digit_record = []
 count_record = []
 count = 0
@@ -71,6 +71,6 @@ y = np.array(count_record)
 plt.plot(x,y,"-ro",)
 plt.xlabel("avg digit")
 plt.ylabel("count")
-plt.savefig("gcd3_RegularCase.png")
+plt.savefig("lab1_Algorithm analysis/graph/gcd3_ExtraCase2.png")
 
 print("finish plotting graph")
