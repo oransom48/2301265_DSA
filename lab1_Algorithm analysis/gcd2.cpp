@@ -96,18 +96,57 @@ long long int gcdUsingSieve(vector<long long int> numbers)
     return commonPrimeFactor(primeFactors);
 }
 
+int countdigit(int n) {
+    if (0 <= n && n <= 9) return 1;
+
+    int c = 0;
+    while (n != 0) {
+        n = n / 10;
+        c++;
+    }
+    return c;
+}
+
 int main()
 {
     string input;
-    getline(cin, input);
+    int counttime[35] = {0};
+    int avg[35] = {0};
 
-    vector<long long int> numbers = extractNumber(input);
+    for (int i=0; i<35; i++) {
+        getline(cin, input);
 
-    auto sieveStart = chrono::high_resolution_clock::now();
-    cout << "GCD using Sieve: " << gcdUsingSieve(numbers) << " | count: " << sieveCount << endl;
-    auto sieveEnd = chrono::high_resolution_clock::now();
-    double sieveTime = chrono::duration_cast<chrono::microseconds>(sieveEnd - sieveStart).count() / 1000.0;
-    cout << "Sieve Time: " << fixed << setprecision(3) << sieveTime << "ms" << endl;
-    
+        sieveCount = 0;
+
+        vector<long long int> numbers = extractNumber(input);
+        long long int gcd = gcdUsingSieve(numbers);
+
+        // save count
+        counttime[i] = sieveCount;
+
+        // save avg digit
+        int sumdigit = 0;
+        for (auto x: numbers) {
+            sumdigit += countdigit(x);
+        }
+        avg[i] = sumdigit / numbers.size();
+
+        /*
+        auto sieveStart = chrono::high_resolution_clock::now();
+        cout << "GCD using Sieve: " << gcdUsingSieve(numbers) << " | count: " << sieveCount << endl;
+        auto sieveEnd = chrono::high_resolution_clock::now();
+        double sieveTime = chrono::duration_cast<chrono::microseconds>(sieveEnd - sieveStart).count() / 1000.0;
+        cout << "Sieve Time: " << fixed << setprecision(3) << sieveTime << "ms" << endl;
+        */
+    }
+
+    for (int i=0; i<35; i++) {
+        cout << counttime[i] << ',';
+    }
+    cout << '\n';
+    for (int i=0; i<35; i++) {
+        cout << avg[i] << ',';
+    }
+
     return 0;
 }
