@@ -64,7 +64,6 @@ with open(testcase_file, "r") as f:
         FindGCD1(*num[:len(num)+1])
         count_record.append(count)
 
-
 plt.plot(digit_record,count_record)
 plt.xlabel('Digits')
 plt.ylabel('Count')
