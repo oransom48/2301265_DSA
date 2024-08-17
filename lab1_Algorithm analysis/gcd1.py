@@ -68,3 +68,5 @@ plt.xlabel('Digits')
 plt.ylabel('Count')
 plt.grid(True)
 plt.savefig("lab1_Algorithm analysis/graph/gcd1_ExtraCase2.png")
+
+#try git
