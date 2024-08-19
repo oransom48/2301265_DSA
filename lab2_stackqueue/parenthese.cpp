@@ -6,7 +6,7 @@ int main() {
     cin.tie(0)->sync_with_stdio(0);
 
     // "({()[{}]})"
-    string parentheses = "({()[{)]})";
+    string parentheses = "({()[{}]})";
     int parenthesesLength = parentheses.length();
 
     stack<char> s;
@@ -16,8 +16,7 @@ int main() {
     for (int i=0; i<parenthesesLength; i++) {
         if (parentheses[i] == '(' || parentheses[i] == '{' || parentheses[i] == '[') {
             s.push(parentheses[i]);
-        }
-        else {
+        } else {
             if (s.empty()) {
                 allpaired = false;
                 message = "too much close parentheses";

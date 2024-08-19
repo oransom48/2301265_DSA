@@ -68,9 +68,12 @@ with open(testcase_file, "r") as f:
             digit_num.append(len(str(i)))
         #check group of number in line
         # print(num)
-        digit_record.append(sum(digit_num)- len(digit_num))
+        digit_record.append(sum(digit_num) / len(digit_num))
         FindGCD1(*num[:len(num)+1])
         count_record.append(count)
+
+print(digit_record)
+print(count_record)
 
 plt.plot(digit_record,count_record)
 plt.xlabel('Digits')
