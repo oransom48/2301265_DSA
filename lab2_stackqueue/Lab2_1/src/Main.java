@@ -1,41 +1,53 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+        StringBuilder txt = new StringBuilder();
+        try {
+            File f = new File("string.txt");
+            Scanner input = new Scanner(f);
 
-        String txt = input.nextLine();
-        int txtlength = txt.length();
+            while (input.hasNextLine()) {
+                txt.append(input.nextLine());
+            }
+            input.close();
+        } catch (FileNotFoundException e) {
+            txt = new StringBuilder();
+        }
+        int txtLength = txt.length();
 
         Stack<Character> s = new Stack<>();
-        String message = "";
-        boolean allpaired = true;
+        boolean balance = true;
 
-        for (int i=0; i<txtlength; i++) {
+        for (int i=0; i<txtLength; i++) {
             if (txt.charAt(i) == '(' || txt.charAt(i) == '{' || txt.charAt(i) == '[') {
                 s.push(txt.charAt(i));
-            } else {
+            } else if (txt.charAt(i) == ')' || txt.charAt(i) == '}' || txt.charAt(i) == ']') {
                 if (s.isEmpty()) {
-                    allpaired = false;
+                    balance = false;
                     break;
                 } else if ((txt.charAt(i) == ')' && s.peek() == '(') ||
                         (txt.charAt(i) == '}' && s.peek() == '{') ||
                         (txt.charAt(i) == ']' && s.peek() == '['))  {
                     s.pop();
                 } else {
-                    allpaired = false;
+                    balance = false;
                     break;
                 }
             }
         }
-        if (!s.isEmpty() && allpaired) {
-            allpaired = false;
+        if (!s.isEmpty() && balance) {
+            balance = false;
         }
 
-        if (allpaired) {
-            System.out.println("The file is balanced. \n" + txt);
+        System.out.println(txt);
+
+        if (balance) {
+            System.out.println("The file is balanced.");
         } else {
-            System.out.println("The file is not balanced. \n " + txt);
+            System.out.println("The file is not balanced.");
         }
     }
 }
