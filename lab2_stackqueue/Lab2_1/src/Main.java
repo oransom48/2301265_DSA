@@ -1,8 +1,10 @@
-import java.util.Stack;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        String txt = "({()[{}]})";
+        Scanner input = new Scanner(System.in);
+
+        String txt = input.nextLine();
         int txtlength = txt.length();
 
         Stack<Character> s = new Stack<>();
@@ -15,7 +17,6 @@ public class Main {
             } else {
                 if (s.isEmpty()) {
                     allpaired = false;
-                    message = "too much close parentheses";
                     break;
                 } else if ((txt.charAt(i) == ')' && s.peek() == '(') ||
                         (txt.charAt(i) == '}' && s.peek() == '{') ||
@@ -23,20 +24,18 @@ public class Main {
                     s.pop();
                 } else {
                     allpaired = false;
-                    message = "wrong parenthese pair";
                     break;
                 }
             }
         }
         if (!s.isEmpty() && allpaired) {
             allpaired = false;
-            message = "too much open parentheses";
         }
 
         if (allpaired) {
-            System.out.println("All paired");
+            System.out.println("The file is balanced. \n" + txt);
         } else {
-            System.out.println((message));
+            System.out.println("The file is not balanced. \n " + txt);
         }
     }
 }
