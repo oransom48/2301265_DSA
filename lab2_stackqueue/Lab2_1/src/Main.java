@@ -3,12 +3,18 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
-        File f = new File("string.txt");
-        Scanner input = new Scanner(f);
+    public static void main(String[] args) {
         StringBuilder txt = new StringBuilder();
-        while (input.hasNextLine()) {
-            txt.append(input.nextLine());
+        try {
+            File f = new File("string.txt");
+            Scanner input = new Scanner(f);
+
+            while (input.hasNextLine()) {
+                txt.append(input.nextLine());
+            }
+            input.close();
+        } catch (FileNotFoundException e) {
+            txt = new StringBuilder();
         }
         int txtLength = txt.length();
 
