@@ -47,7 +47,7 @@ public class ArithmeticEvaluation {
             switch (token) {
                 case "(" -> operators.push(token.charAt(0));
                 case ")" -> {
-                    while (!operators.isEmpty() && operators.peek() != '(') {
+                    while (!operators.isEmpty() && operators.peek() != '(') {//แฮนเดิ้ล การใส่() หรือใส่แค่(
                         performOperation(operands, operators);
                     }
                     operators.pop();
