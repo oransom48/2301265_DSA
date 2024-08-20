@@ -3,8 +3,6 @@
 *.ilk
 *.obj
 *.pdb
-*.xml
-*.iml
 
 ### IntelliJ IDEA ###
 out/
