@@ -15,7 +15,7 @@ public class ArithmeticEvaluation {
         }
     }
 
-    private static int applyOp(int a, int b, char op) {
+    private static double applyOp(double a, double b, char op) {
         return switch (op) {
             case '+' -> a + b;
             case '-' -> a - b;
@@ -26,13 +26,14 @@ public class ArithmeticEvaluation {
                 }
                 yield a / b;
             }
+            case '^' -> Math.pow(a,b);
             default -> 0;
         };
     }
 
-    private static void performOperation(Stack<Integer> operands, Stack<Character> operators) {
-        int b = operands.pop();
-        int a = operands.pop();
+    private static void performOperation(Stack<Double> operands, Stack<Character> operators) {
+        double b = operands.pop();
+        double a = operands.pop();
         char op = operators.pop();
         operands.push(applyOp(a, b, op));
     }
@@ -40,7 +41,7 @@ public class ArithmeticEvaluation {
     public static String evaluate(String expression) {
         ArrayList<String> tokens = getTokens(expression);
 
-        Stack<Integer> operands = new Stack<>();
+        Stack<Double> operands = new Stack<>();
         Stack<Character> operators = new Stack<>();
 
         for (String token : tokens) {
@@ -52,14 +53,14 @@ public class ArithmeticEvaluation {
                     }
                     operators.pop();
                 }
-                case "+", "-", "*", "/" -> {
+                case "+", "-", "*", "/" , "^" -> {
                     char currentOperator = token.charAt(0);
                     while (!operators.isEmpty() && precedence(operators.peek()) >= precedence(currentOperator)) {
                         performOperation(operands, operators);
                     }
                     operators.push(currentOperator);
                 }
-                default -> operands.push(Integer.parseInt(token));
+                default -> operands.push(Double.parseDouble(token));
             }
 
 
@@ -83,7 +84,7 @@ public class ArithmeticEvaluation {
             if (c == ' ') {
                 continue;
             }
-            if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')') {
+            if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')' || c=='^') {
                 if (!sb.isEmpty()) {
                     tokens.add(sb.toString());
                     sb.setLength(0);
