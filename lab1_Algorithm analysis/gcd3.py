@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 
-testcase_file = "lab1_Algorithm analysis/testcase/Extra Case2 plot.txt"
+testcase_file = "lab1_Algorithm analysis/testcase/Extra Case1.txt"
 digit_record = []
 count_record = []
 count = 0

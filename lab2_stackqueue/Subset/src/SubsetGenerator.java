@@ -7,6 +7,7 @@ public class SubsetGenerator {
             return Integer.parseInt(txt.substring(1, txt.length()-1));
         }
         return Integer.parseInt(txt);
+        
     }
 
     // Function to generate all subsets using a stack
