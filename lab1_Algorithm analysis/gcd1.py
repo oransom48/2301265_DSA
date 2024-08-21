@@ -5,7 +5,7 @@ import math
 count =0
 digit_record= []
 count_record= []
-testcase_file = "lab1_Algorithm analysis/testcase/Extra Case2 plot.txt"
+testcase_file = "lab1_Algorithm analysis/testcase/Regular_Case1.txt"
 
 def prime_factors(n):
     global count

@@ -110,16 +110,20 @@ int countdigit(int n) {
 int main()
 {
     string input;
-    int counttime[35] = {0};
-    int avg[35] = {0};
+    int counttime[55] = {0};
+    int avg[55] = {0};
+    int gcdsave[55] = {0};
 
-    for (int i=0; i<35; i++) {
+    for (int i=0; i<55; i++) {
         getline(cin, input);
 
         sieveCount = 0;
 
         vector<long long int> numbers = extractNumber(input);
         long long int gcd = gcdUsingSieve(numbers);
+
+        // save gcd
+        gcdsave[i] = gcd;
 
         // save count
         counttime[i] = sieveCount;
@@ -131,6 +135,8 @@ int main()
         }
         avg[i] = sumdigit / numbers.size();
 
+        cout << " GCD: " << gcdsave[i] << ", count: " << counttime[i] << ", avg digit: " << avg[i] << '\n' ;
+
         /*
         auto sieveStart = chrono::high_resolution_clock::now();
         cout << "GCD using Sieve: " << gcdUsingSieve(numbers) << " | count: " << sieveCount << endl;
@@ -138,14 +144,6 @@ int main()
         double sieveTime = chrono::duration_cast<chrono::microseconds>(sieveEnd - sieveStart).count() / 1000.0;
         cout << "Sieve Time: " << fixed << setprecision(3) << sieveTime << "ms" << endl;
         */
-    }
-
-    for (int i=0; i<35; i++) {
-        cout << counttime[i] << ',';
-    }
-    cout << '\n';
-    for (int i=0; i<35; i++) {
-        cout << avg[i] << ',';
     }
 
     return 0;
