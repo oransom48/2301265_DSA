@@ -4,7 +4,9 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        List<Integer> T = Arrays.asList(1, 2, 3, 4);
+        // List<Integer> T = Arrays.asList(1, 2, 3, 4);
+//        List<String> T = Arrays.asList("1", "2", "3", "4");
+        List<String> T = Arrays.asList("{1}", "{2}", "{3}");
 
         System.out.println("All possible subsets stack:");
         SubsetGenerator.generateSubsetsStack(T);
