@@ -61,20 +61,34 @@ public class Main {
         tree.push(newBT);
     }
 
-    private static ArrayList<String> toStrArr(String str) {
-        ArrayList<String> strArr = new ArrayList<>();
-
-        for (char c : str.toCharArray()) {
-            strArr.add(String.valueOf(c));
+    private static ArrayList<String> getTokens(String expression) {
+        ArrayList<String> tokens = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        for (char c : expression.toCharArray()) {
+            if (c == ' ') {
+                continue;
+            }
+            if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')' || c=='^') {
+                if (!sb.isEmpty()) {
+                    tokens.add(sb.toString());
+                    sb.setLength(0);
+                }
+                tokens.add(String.valueOf(c));
+            } else {
+                sb.append(c);
+            }
         }
 
-        return strArr;
+        if (!sb.isEmpty()) {
+            tokens.add(sb.toString());
+        }
+        return tokens;
     }
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        String expression = input.nextLine().replaceAll(" ", "");
-        ArrayList<String> tokens = toStrArr(expression);
+        String expression = input.nextLine();
+        ArrayList<String> tokens = getTokens(expression);
 
         Stack<BinaryTree> tree = new Stack<>();
         Stack<String> operators = new Stack<>();
@@ -116,4 +130,12 @@ public class Main {
 (3 + 5) * ((2 - 8) / (4 + 6))
 5 + 3 - 2
 2 + 3 * (4 - 2)
+3 + 5 - 2
+(1 + 2) * 3
+(2 + (3 - 1)) * 4
+2 + (3 - (4 + 5))
+1 + (2 + (3 + (4 - 5)))
+((2 + 3) * (4 + 5) - (3 + 4) / 2)
+-3 + (-2) * (-2)
+(10 + 20 - 30) + (40 * 2) - (50 / 10)
  */
