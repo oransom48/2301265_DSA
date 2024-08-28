@@ -40,4 +40,8 @@ public class Node {
     public Node getRightNode() {
         return rightNode;
     }
+
+    public boolean isLeaf() {
+        return leftNode == null && rightNode == null;
+    }
 }
