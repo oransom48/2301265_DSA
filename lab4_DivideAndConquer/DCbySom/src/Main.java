@@ -2,7 +2,12 @@ import java.util.Scanner;
 
 public class Main {
 
+    private static int countMin = 0;
+    private static int countMax = 0;
+
     public static int minElementIndex(float[] arr, int low, int high) {
+        countMin++;
+
         if (low == high) {
             return low;
         }
@@ -19,6 +24,8 @@ public class Main {
     }
 
     public static int maxElementIndex(float[] arr, int low, int high) {
+        countMax++;
+
         if (low == high) {
             return low;
         }
@@ -54,6 +61,8 @@ public class Main {
         System.out.printf("%.2f\n", rate[maxEleIndex] - rate[minEleIndex]);
         System.out.println(maxEleIndex - minEleIndex);
 
+        System.out.println("find min count: " + countMin);
+        System.out.println("find max count: " + countMax);
 
     }
 }
