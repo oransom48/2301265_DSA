@@ -40,6 +40,18 @@ public class BinaryTree {
         root.setRightNode(rightTree.getRoot());
     }
 
+    private void printPreOrderHelper(Node current) {
+        if (current != null) {
+            System.out.printf(current.getData() + " ");
+            printInOrderHelper(current.getLeftNode());
+            printInOrderHelper(current.getRightNode());
+        }
+    }
+
+    public void printPreOrder() {
+        printInOrderHelper(root);
+    }
+
     private void printInOrderHelper(Node current) {
         if (current != null) {
             printInOrderHelper(current.getLeftNode());
@@ -77,5 +89,33 @@ public class BinaryTree {
         postOrderStackHelper(root, postOrder);
 
         return postOrder;
+    }
+
+    private double evaluateHelper(Node current) {
+        if (current.isLeaf()) {
+            return Double.parseDouble(current.getData());
+        }
+
+        double left = evaluateHelper(current.getLeftNode());
+        double right = evaluateHelper(current.getRightNode());
+        switch (current.getData()) {
+            case "+" -> {
+                return left + right;
+            } case "-" -> {
+                return left - right;
+            } case "*" -> {
+                return left * right;
+            } case "/" -> {
+                return left / right;
+            } case "^" -> {
+                return Math.pow(left, right);
+            } default -> {
+                return 0;
+            }
+        }
+    }
+
+    public double evaluate() {
+        return evaluateHelper(root);
     }
 }
