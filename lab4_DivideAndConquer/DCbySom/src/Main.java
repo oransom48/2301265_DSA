@@ -3,8 +3,6 @@ import java.util.Scanner;
 public class Main {
 
     private static int count = 0;
-    private static int countMin = 0;
-    private static int countMax = 0;
 
     public static int findMinIndex(float[] arr, int low, int high) {
         int minIndex = low;
@@ -35,9 +33,14 @@ public class Main {
 
         int mid = (low + high) / 2;
 
+        // 1. get indexes of 2 elements which make the maximum difference on the left side
         Pair<Integer> leftMaxDiffIndex = maxDiff(arr, low, mid);
+
+        // 2. get indexes of 2 elements which make the maximum difference on the right side
         Pair<Integer> rightMaxDiffIndex = maxDiff(arr, mid+1, high);
 
+        // 3. get the minimum element's index and maximum element's index
+        // if minimum element appears after maximum element, we set the difference to -1
         int minLeftIndex = findMinIndex(arr, low, high);
         int maxRightIndex = findMaxIndex(arr, low, high);
         float diffLeftRight;
@@ -47,6 +50,7 @@ public class Main {
             diffLeftRight = arr[maxRightIndex] - arr[minLeftIndex];
         }
 
+        // 4. find what index's pair will give the maximum difference
         float maxDiff = Math.max( Math.max(arr[leftMaxDiffIndex.getSecond()] - arr[leftMaxDiffIndex.getFirst()],
                 arr[rightMaxDiffIndex.getSecond()] - arr[rightMaxDiffIndex.getFirst()]),
                 diffLeftRight);
@@ -59,44 +63,6 @@ public class Main {
         return new Pair<>(minLeftIndex, maxRightIndex);
     }
 
-    public static int minElementIndex(float[] arr, int low, int high) {
-        countMin++;
-
-        if (low == high) {
-            return low;
-        }
-
-        int mid = (low + high) / 2;
-        int leftMinIndex = minElementIndex(arr, low, mid);
-        int rightMinIndex = minElementIndex(arr, mid + 1, high);
-        float minEle = Math.min(arr[leftMinIndex], arr[rightMinIndex]);
-
-        if (minEle == arr[leftMinIndex]) {
-            return leftMinIndex;
-        }
-        return rightMinIndex;
-    }
-
-    public static int maxElementIndex(float[] arr, int low, int high) {
-        countMax++;
-
-        if (low == high) {
-            return low;
-        }
-
-        int mid = (low + high) / 2;
-        int leftMaxIndex = maxElementIndex(arr, low, mid);
-        int rightMaxIndex = maxElementIndex(arr, mid + 1, high);
-        float maxEle = Math.max(arr[leftMaxIndex], arr[rightMaxIndex]);
-
-        if (maxEle == arr[leftMaxIndex]) {
-            return leftMaxIndex;
-        }
-        return rightMaxIndex;
-    }
-
-
-
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
@@ -105,19 +71,6 @@ public class Main {
         for (int i=0; i<n; i++) {
             rate[i] = input.nextFloat();
         }
-
-//        int minEleIndex = minElementIndex(rate, 0, n-1);
-//        System.out.println(minEleIndex + 1);
-//        System.out.printf("%.2f\n", rate[minEleIndex]);
-//
-//        int maxEleIndex = maxElementIndex(rate, minEleIndex, n-1);
-//        System.out.println(maxEleIndex + 1);
-//        System.out.printf("%.2f\n", rate[maxEleIndex]);
-//
-//        System.out.printf("%.2f\n", rate[maxEleIndex] - rate[minEleIndex]);
-//        System.out.println(maxEleIndex - minEleIndex);
-//        System.out.println("find min count: " + countMin);
-//        System.out.println("find max count: " + countMax);
 
         Pair<Integer> maxDiffIndex = maxDiff(rate, 0, n-1);
 
