@@ -39,8 +39,7 @@ public class Main {
         // 2. get indexes of 2 elements which make the maximum difference on the right side
         Pair<Integer> rightMaxDiffIndex = maxDiff(arr, mid+1, high);
 
-        // 3. get the minimum element's index and maximum element's index
-        // if minimum element appears after maximum element, we set the difference to -1
+        // 3. get the minimum element's index on the left side and maximum element's index on the right side
         int minIndex = findMinIndex(arr, low, mid);
         int maxIndex = findMaxIndex(arr, mid+1, high);
 
