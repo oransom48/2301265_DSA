@@ -39,28 +39,21 @@ public class Main {
         // 2. get indexes of 2 elements which make the maximum difference on the right side
         Pair<Integer> rightMaxDiffIndex = maxDiff(arr, mid+1, high);
 
-        // 3. get the minimum element's index and maximum element's index
-        // if minimum element appears after maximum element, we set the difference to -1
-        int minLeftIndex = findMinIndex(arr, low, high);
-        int maxRightIndex = findMaxIndex(arr, low, high);
-        float diffLeftRight;
-        if (minLeftIndex > maxRightIndex) {
-            diffLeftRight = -1;
-        } else {
-            diffLeftRight = arr[maxRightIndex] - arr[minLeftIndex];
-        }
+        // 3. get the minimum element's index on the left side and maximum element's index on the right side
+        int minIndex = findMinIndex(arr, low, mid);
+        int maxIndex = findMaxIndex(arr, mid+1, high);
 
         // 4. find what index's pair will give the maximum difference
         float maxDiff = Math.max( Math.max(arr[leftMaxDiffIndex.getSecond()] - arr[leftMaxDiffIndex.getFirst()],
                 arr[rightMaxDiffIndex.getSecond()] - arr[rightMaxDiffIndex.getFirst()]),
-                diffLeftRight);
+                arr[maxIndex] - arr[minIndex]);
 
         if (maxDiff == arr[leftMaxDiffIndex.getSecond()] - arr[leftMaxDiffIndex.getFirst()]) {
             return leftMaxDiffIndex;
         } else if (maxDiff == arr[rightMaxDiffIndex.getSecond()] - arr[rightMaxDiffIndex.getFirst()]) {
             return rightMaxDiffIndex;
         }
-        return new Pair<>(minLeftIndex, maxRightIndex);
+        return new Pair<>(minIndex, maxIndex);
     }
 
     public static void main(String[] args) {
@@ -96,6 +89,24 @@ public class Main {
 /* test case 1
 20
 43.12 44.49 43.01 41.54 40.32 40.12 37.91 32.40 32.99 34.33 31.72 30.48 31.07 30.72 32.48 34.25 35.29 33.93 32.32 31.18
+
+20
+40.24 39.85 40.52 47.03 50.21 49.92 47.61 44.35 48.45 47.81 42.10 42.43 39.94 40.84 43.17 38.01 39.05 38.30 38.15 38.30
+
+20
+67.99 64.06 64.48 67.92 73.94 73.01 69.85 64.80 61.00 53.67 49.01 48.89 49.24 48.09 53.51 52.36 47.85 43.69 43.11 39.70
+
+20
+55.00 40.00 32.00 31.00 30.00 29.00 16.00 15.00 14.00 12.00 11.00 10.00 9.00 9.00 9.00 8.00 6.00 4.00 2.00 1.00
+
+80
+43.12 44.49 43.01 41.54 40.32 40.12 37.91 32.40 32.99 34.33 31.72 30.48 31.07 30.72 32.48 34.25 35.29 33.93 32.32 31.18 40.24 39.85 40.52 47.03 50.21 49.92 47.61 44.35 48.45 47.81 42.10 42.43 39.94 40.84 43.17 38.01 39.05 38.30 38.15 38.30 67.99 64.06 64.48 67.92 73.94 73.01 69.85 64.80 61.00 53.67 49.01 48.89 49.24 48.09 53.51 52.36 47.85 43.69 43.11 39.70 55.00 40.00 32.00 31.00 30.00 29.00 16.00 15.00 14.00 12.00 11.00 10.00 9.00 9.00 9.00 8.00 6.00 4.00 2.00 1.00
+
+33
+30.48 31.07 30.72 32.48 34.25 35.29 33.93 32.32 31.18 40.24 39.85 40.52 47.03 50.21 49.92 47.61 44.35 48.45 47.81 42.10 42.43 39.94 40.84 43.17 38.01 39.05 38.30 38.15 38.30 67.99 64.06 64.48 67.92 73.94
+
+34
+31.72 30.48 31.07 30.72 32.48 34.25 35.29 33.93 32.32 31.18 40.24 39.85 40.52 47.03 50.21 49.92 47.61 44.35 48.45 47.81 42.10 42.43 39.94 40.84 43.17 38.01 39.05 38.30 38.15 38.30 67.99 64.06 64.48 67.92 73.94
 */
 
 /* our test case
@@ -108,4 +119,9 @@ public class Main {
 4
 20.00 60.00 12.00 30.00
 
+7
+20.00 10.00 58.00 52.00 15.00 80.00 40.00
+
+22
+31.07 30.72 30.48 32.48 34.25 35.29 33.93 32.32 31.18 40.24 40.84 43.17 38.01 39.05 38.30 38.15 38.30 67.99 64.06 64.48 73.94 67.92
 */
