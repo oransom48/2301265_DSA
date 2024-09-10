@@ -12,6 +12,20 @@ public class Main {
         }
     }
 
+    public static void printMinWay(int[] coins, int[] rec) {
+        if (rec[rec.length-1] == -1) {
+            System.out.println("No solution");
+            return;
+        }
+
+        int idx = rec.length - 1;
+        while (idx != 0) {
+            System.out.printf("%d ", coins[rec[idx]]);
+            idx = idx - coins[rec[idx]];
+        }
+        System.out.print("\n");
+    }
+
     public static int numOfWays(int target, int[] coins) {
         if (coins.length == 1) return 0;
         if (target == 0) return 1;
@@ -28,24 +42,28 @@ public class Main {
             }
         }
 
-        //print2DArr(dp, coins);
+        // print2DArr(dp, coins);
         return dp[n-1][target];
     }
 
-    public static int minWay(int target, int[] arr) {
-        if (target == 0 || arr.length == 1) return 0;
+    public static int minWay(int target, int[] coins) {
+        if (target == 0 || coins.length == 1) return 0;
 
         int[] dp = new int[target+1];
         dp[0] = 0;
+        int[] rec = new int[target+1];
 
         for (int i=1; i<=target; i++) dp[i] = Integer.MAX_VALUE-1;
+        for (int i=0; i<=target; i++) rec[i] = -1;
 
-        for (int i=1; i<arr.length; i++) {
-            for (int j=1; j<=target; j++) {
-                if (arr[i] <= j) dp[j] = Math.min(dp[j], dp[j-arr[i]] + 1);
+        for (int i = 1; i< coins.length; i++) {
+            for (int j = coins[i]; j<=target; j++) {
+                dp[j] = Math.min(dp[j], dp[j- coins[i]] + 1);
+                rec[j] = i;
             }
         }
 
+        // printMinWay(coins, rec);
         return dp[target];
     }
 
