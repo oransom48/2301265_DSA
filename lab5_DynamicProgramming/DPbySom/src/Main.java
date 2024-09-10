@@ -1,62 +1,52 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void printDP(boolean[][] arr, int[] num) {
-        for (int i=0; i< arr.length; i++) {
-            System.out.printf("%d\t", num[i]);
+    public static void print2DArr(int[][] arr, int[] rowHead) {
+        for (int i=0; i<arr.length; i++) {
+            System.out.printf("%d\t", rowHead[i]);
             for (int j=0; j<arr[0].length; j++) {
-                if (arr[i][j]) System.out.print("T ");
-                else System.out.print("F ");
+                System.out.printf("%d ", arr[i][j]);
             }
             System.out.print("\n");
         }
     }
 
-    public static void printSubset(ArrayList<Integer> ans) {
-        for (int a: ans) {
-            System.out.printf("%d ", a);
-        }
-        System.out.print("\n");
-    }
+    public static int numOfWays(int target, int[] coins) {
+        if (coins.length == 1) return 0;
+        if (target == 0) return 1;
 
-    public static void findSubsetRecord(boolean[][] dp, int[] num, int i, int sum, ArrayList<Integer> ans) {
-        if (i==0 && sum==0) {
-            printSubset(ans);
-            return;
-        }
+        int n = coins.length;
+        int[][] dp = new int[n][target+1];
 
-        if (dp[i-1][sum]) {
-            ArrayList<Integer> b = new ArrayList<>(ans);
-            findSubsetRecord(dp, num, i-1, sum, b);
-        }
-
-        if (num[i] <= sum && dp[i-1][sum-num[i]]) {
-            ans.add(num[i]);
-            findSubsetRecord(dp, num, i-1, sum-num[i], ans);
-        }
-
-        System.out.printf("Hi %d %d\n", i, sum);
-    }
-
-    public static boolean[][] findTargetSubset(int target, int[] num) {
-        int n = num.length;
-        boolean[][] dp = new boolean[n][target+1];
-
-        for (int i=0; i<n; i++) dp[i][0] = true;
-        for (int j=1; j<target+1; j++) dp[0][j] = false;
-
+        for (int j=1; j<=target; j++) dp[0][j] = 0;
+        for (int i=0; i<n; i++) dp[i][0] = 1;
         for (int i=1; i<n; i++) {
             for (int j=1; j<=target; j++) {
-                if (num[i] > j) {
-                    dp[i][j] = dp[i-1][j];
-                } else {
-                    dp[i][j] = dp[i-1][j] || dp[i-1][j-num[i]];
-                }
+                if (coins[i] > j) dp[i][j] = dp[i-1][j];
+                else dp[i][j] = dp[i-1][j] + dp[i][j-coins[i]];
             }
         }
-        return dp;
+
+        //print2DArr(dp, coins);
+        return dp[n-1][target];
+    }
+
+    public static int minWay(int target, int[] arr) {
+        if (target == 0 || arr.length == 1) return 0;
+
+        int[] dp = new int[target+1];
+        dp[0] = 0;
+
+        for (int i=1; i<=target; i++) dp[i] = Integer.MAX_VALUE-1;
+
+        for (int i=1; i<arr.length; i++) {
+            for (int j=1; j<=target; j++) {
+                if (arr[i] <= j) dp[j] = Math.min(dp[j], dp[j-arr[i]] + 1);
+            }
+        }
+
+        return dp[target];
     }
 
     public static int[] strToIntArr(String s) {
@@ -77,10 +67,14 @@ public class Main {
         int target = Integer.parseInt(strTarget);
 
         String strArr = input.nextLine();
-        int[] num = strToIntArr(strArr);
+        int[] coins = strToIntArr(strArr);
 
-        ArrayList<Integer> ans = new ArrayList<>();
-        findSubsetRecord(findTargetSubset(target, num), num, num.length-1, target, ans);
+        int ans1 = numOfWays(target, coins);
+        System.out.println(ans1);
+
+        int ans2 = minWay(target, coins);
+        if (ans2 == Integer.MAX_VALUE-1) System.out.println(ans1);
+        else System.out.println(ans2);
     }
 }
 
@@ -96,4 +90,10 @@ public class Main {
 
 10
 2 3 5 6 8 10
+
+3
+2
+
+0
+1
  */
