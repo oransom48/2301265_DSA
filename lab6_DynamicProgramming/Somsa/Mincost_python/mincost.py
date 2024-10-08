@@ -114,19 +114,7 @@ def main():
         print("minimum cost = %.2f" %table[0][n-1])
         plotting(vertices, track, n)
 
-def test():
-    n = int(input())
-    vertices = [[], []]
-    for i in range(n):
-        tmp = input().split(" ")
-        vertices[0].append(float(tmp[0]))
-        vertices[1].append(float(tmp[1]))
-
-    a = sort_vertices(vertices)
-    print(a)
-
-# main()
-test()
+main()
 
 """
 5
