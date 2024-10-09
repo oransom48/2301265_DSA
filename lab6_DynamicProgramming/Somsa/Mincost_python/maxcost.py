@@ -100,11 +100,11 @@ def main():
                 if (j < i + 2):
                     table[i][j] = 0.0
                 else:
-                    table[i][j] = np.finfo(np.float32).max
+                    table[i][j] = -np.finfo(np.float32).max
                     k = i + 1
                     while (k < j):
                         temp = table[i][k] + table[k][j] + perimeter(vertices, i, j, k)
-                        if (temp < table[i][j]):
+                        if (temp > table[i][j]):
                             table[i][j] = temp
                             track[i][j] = k
                         k += 1
@@ -112,8 +112,8 @@ def main():
                 j += 1
             gap += 1
 
-        print("minimum cost = %.2f" %table[0][n-1])
-        plotting(vertices, track, n)
+        print("maximum cost = %.2f" %table[0][n-1])
+        # plotting(vertices, track, n)
         print(table)
 
 main()
