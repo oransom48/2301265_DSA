@@ -1,0 +1,52 @@
+def bolt_Force( arr: str, k: int):
+    check =[]
+    ans= 0
+
+    for i in range(len(arr)):
+        check.append(False)
+    for x in range(len(arr)):
+        if arr[x] == "G":
+            for i in range(x+1, x+k+1,1):
+                if i >= len(arr):
+                    break
+                if (not check[i]) and arr[i] == "P":
+                    ans +=1
+                    check[i]= True
+            for i in range(x-1,x-k-1, -1):
+                if i <0:
+                    break
+                if (not check[i]) and arr[i] == "P":
+                    ans +=1
+                    check[i]= True
+
+    return ans
+
+
+def geed_ride(arr: str , k: int):
+    ans=0
+    countg =0
+    countp= 0
+    n = len(arr)
+    while countg <n and countp < n:
+        while countg <n and  arr[countg] != 'G':
+            countg +=1
+        while  countp < n and arr[countp] != "P":
+            countp +=1
+        if countp < n and countg< n and abs(countg - countp) <= k:
+            ans += 1
+            countg += 1
+            countp += 1
+        elif  countg < countp:
+            countg += 1
+        else:
+            countp += 1
+
+    return ans
+if __name__ == '__main__':
+    arr = "GGPPGGGGPPPG"
+    k = 3
+    print(bolt_Force(arr , k))
+    print(geed_ride(arr, k))
+
+
+
