@@ -73,21 +73,21 @@ public class Main {
                 int row = -1, col = -1;
 
                 if (directionIndex == 0) {
-                    row = i - 4;
+                    row = i - (m - 1);
                     col = startIndex;
                 } else if (directionIndex == 1) {
-                    row = n - i + 2;
+                    row = n - i + m - 3;
                     col = startIndex;
                 } else if (directionIndex == 2) {
                     row = startIndex;
-                    col = i - 4;
+                    col = i - (m - 1);
                 } else if (directionIndex == 3) {
                     row = startIndex;
-                    col = n - i + 2;
+                    col = n - i + m - 3;
                 }
 
 //                System.out.println(i + " " + n);
-                System.out.printf("\n%d %d %d", row, col, directionIndex);
+                System.out.printf("> %d %d %d\n", row, col, directionIndex);
                 q = 0;
             }
         }
@@ -180,4 +180,17 @@ B A B A C A B A
 A B A B A B A C
 C A C A C A B A
 A B A C
+
+A B C
+1 10 3
+A B C A B C A B C A
+A B C
+
+A B
+4 10 4
+A B A B A B A B A B
+B A B A B A B A B A
+A B A B A B A B A B
+B A B A B A B A B A
+A B A B
  */
