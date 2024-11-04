@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Main {
@@ -24,30 +26,42 @@ public class Main {
 
         if (directionIndex == 0) {
             // 0 = UB
-            String[] arr = new String[row + 1];
+            String[] arr = new String[(2 * row) + 1];
             for (int i=1; i<=row; i++) {
                 arr[i] = table[i-1][startIndex];
+            }
+            for (int i=1; i<=row; i++) {
+                arr[row+i] = table[i-1][startIndex];
             }
             return arr;
         } else if (directionIndex == 1) {
             // 1 = BU
-            String[] arr = new String[row + 1];
+            String[] arr = new String[(2 * row) + 1];
             for (int i=1; i<=row; i++) {
                 arr[i] = table[row-i][startIndex];
+            }
+            for (int i=1; i<=row; i++) {
+                arr[row+i] = table[row-i][startIndex];
             }
             return arr;
         } else if (directionIndex == 2) {
             // 2 = LR
-            String[] arr = new String[col + 1];
+            String[] arr = new String[(2 * col) + 1];
             for (int i=1; i<=col; i++) {
                 arr[i] = table[startIndex][i-1];
+            }
+            for (int i=1; i<=col; i++) {
+                arr[col+i] = table[startIndex][i-1];
             }
             return arr;
         } else if (directionIndex == 3) {
             // 3 = RL
-            String[] arr = new String[col + 1];
+            String[] arr = new String[(2 * col) + 1];
             for (int i=1; i<=col; i++) {
                 arr[i] = table[startIndex][col-i];
+            }
+            for (int i=1; i<=col; i++) {
+                arr[col+i] = table[startIndex][col-i];
             }
             return arr;
         }
@@ -55,7 +69,7 @@ public class Main {
     }
 
     public static void KMPMatch(String[] text, String[] pattern, int[] prefix, int startIndex, int directionIndex) {
-        // String[] direction = {"UB", "BU", "LR", "RL"};
+         String[] direction = {"UB", "BU", "LR", "RL"};
 
         int n = text.length;
         int m = pattern.length;
@@ -87,13 +101,13 @@ public class Main {
                 }
 
 //                System.out.println(i + " " + n);
-                System.out.printf("> %d %d %d\n", row, col, directionIndex);
+                System.out.printf("> %d %d %s\n", row, col, direction[directionIndex]);
                 q = 0;
             }
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Scanner input = new Scanner(System.in);
 
         // input
@@ -107,6 +121,20 @@ public class Main {
                 table[i][j] = input.next();
             }
         }
+
+//        File file = new File("src/8.4.txt");
+//        Scanner fileScanner = new Scanner(file);
+//        for (int i = 0; i < row; i++) {
+//            for (int j = 0; j < col; j++) {
+//                table[i][j] = fileScanner.next();
+//            }
+//        }
+//        fileScanner.close();
+
+//        for (int i=0;i<10;i++) {
+//            System.out.println(table[0][i]);
+//        }
+
         input.nextLine();
         String[] pattern = new String[n+1];
         for (int i = 1; i<=n; i++) {
@@ -193,4 +221,9 @@ B A B A B A B A B A
 A B A B A B A B A B
 B A B A B A B A B A
 A B A B
+
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+1000 1000 20
+A C A C A B A C A C A B A C A C A C D E
  */
+
