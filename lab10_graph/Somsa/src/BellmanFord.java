@@ -3,8 +3,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
-public class Main {
-
+public class BellmanFord {
     public static String getPath(int startNode, int finishNode, int[] predecessor) {
         if (predecessor[finishNode] == -1) {
             return "No path";
@@ -58,7 +57,6 @@ public class Main {
             int x = input.nextInt();
             int y = input.nextInt();
             graph[x - 1][y - 1] = input.nextInt();
-            System.out.println(i + " " + graph[x - 1][y - 1]);
         }
 
         int k = input.nextInt();
@@ -127,38 +125,8 @@ public class Main {
                 int destination = assignment[1];
 
                 String path = getPath(0, destination, predecessor); // Path from country 1 to the destination
-                System.out.println((i+1) + " Cost: " + totalCost + ",\tPath: " + path);
+                System.out.println("Cost: " + totalCost + ",\tPath: " + path);
             }
         }
-
     }
 }
-
-/*
-5 5 200000
-1 1 2 2 1
-1 2 20000
-1 3 10000
-2 4 10000
-3 4 30000
-3 5 10000
-6
-
-10 14 10000
-1 2 2 1 2 2 1 2 2 1
-1 2 1
-1 7 19
-1 9 13
-1 10 10
-2 3 4
-3 4 14
-3 6 4
-4 5 16
-4 7 6
-6 5 14
-7 3 1
-8 4 15
-9 8 8
-10 9 8
-20
-*/
